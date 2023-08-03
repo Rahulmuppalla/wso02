@@ -1,0 +1,30 @@
+# mysql-pv.yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-pv
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: mysql-sc
+  hostPath:
+    path: /data/mount
+
+---
+
+# mysql-pvc.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: mysql-sc
+  resources:
+    requests:
+      storage: 10Gi
+

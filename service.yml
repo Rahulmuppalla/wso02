@@ -1,0 +1,25 @@
+# wso2is-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: wso2is-service
+spec:
+  selector:
+    app: wso2is
+  ports:
+    - name: https
+      port: 9443
+      targetPort: 9443
+# wso2is-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: wso2is-service
+spec:
+  selector:
+    app: wso2is
+  ports:
+    - name: https
+      port: 9443
+      targetPort: 9443
+

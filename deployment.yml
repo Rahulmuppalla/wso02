@@ -1,0 +1,35 @@
+# wso2is-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wso2is-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wso2is
+  template:
+    metadata:
+      labels:
+        app: wso2is
+    spec:
+      containers:
+        - name: wso2is
+          image: wso2/wso2is:5.7.0
+          env:
+            - name: MYSQL_JDBC_URL
+              value: "jdbc:mysql://mysql-service:3306/wso2is_db?useSSL=false"
+            - name: MYSQL_JDBC_USERNAME
+              value: wso2is_user
+            - name: MYSQL_JDBC_PASSWORD
+              value: redhat
+          ports:
+            - containerPort: 9443
+          volumeMounts:
+            - name: wso2is-persistent-storage
+              mountPath: /mnt/wso2is/repository
+      volumes:
+        - name: wso2is-persistent-storage
+          persistentVolumeClaim:
+            claimName: mysql-pvc
+
